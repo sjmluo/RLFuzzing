@@ -332,10 +332,12 @@ ifdef TEST_MMAP
 	override CXXFLAGS += -DUSEMMAP=1
 	LDFLAGS += -Wno-deprecated-declarations
 endif
+PY_RL_FUZZING=0
+RL_FUZZING=0
 
 ifdef PY_RL_FUZZING
   $(info Building Python RL fuzzer)
-  RL_FUZZING=1
+  RL_FUZZING=0
   override CFLAGS += -DRL_USE_PYTHON
   override CXXFLAGS += -DRL_USE_PYTHON
 endif
