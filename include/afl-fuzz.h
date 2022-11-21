@@ -90,8 +90,8 @@
 #ifdef CALCULATE_OVERHEAD
   typedef unsigned long long timestamp_t;
   timestamp_t get_timestamp ();
-  
 #endif
+
 /* End RL fuzzing */
 
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__) || \
@@ -210,6 +210,10 @@ struct queue_entry {
   struct tainted *taint;                /* Taint information from CmpLog    */
 
   struct queue_entry *mother;           /* queue entry this based on        */
+
+#ifdef CALCULATE_OVERHEAD
+  double update_overhead_sec;
+#endif
 
 };
 

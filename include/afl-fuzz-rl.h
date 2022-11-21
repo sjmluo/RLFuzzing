@@ -36,9 +36,7 @@ typedef struct {
   struct queue_entry * queue_cur;
   struct queue_entry **top_rated;
 
-#ifdef CALCULATE_OVERHEAD
-  double update_overhead_sec;
-#endif
+
 
 } rl_params_t;
 
