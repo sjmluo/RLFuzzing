@@ -211,9 +211,9 @@ struct queue_entry {
 
   struct queue_entry *mother;           /* queue entry this based on        */
 
-#ifdef CALCULATE_OVERHEAD
+// #ifdef CALCULATE_OVERHEAD
   double update_overhead_sec;
-#endif
+// #endif
 
 };
 
