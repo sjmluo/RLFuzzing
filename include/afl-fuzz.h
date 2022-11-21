@@ -81,6 +81,7 @@
 #define CALCULATE_OVERHEAD 1
 #define RL_FUZZING 0
 #define PY_RL_FUZZING 0
+#define RL_USE_PYTHON 0
 
 #ifdef RL_FUZZING
 #include "afl-fuzz-rl.h"
