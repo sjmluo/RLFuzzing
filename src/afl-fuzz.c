@@ -2289,6 +2289,7 @@ int main(int argc, char **argv_orig, char **envp) {
     }
     timestamp_t t0, t1;
     u8 *scheduler_overhead = NULL;
+    ;
 #endif
 
   while (likely(!afl->stop_soon)) {
