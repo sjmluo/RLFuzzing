@@ -2284,11 +2284,11 @@ int main(int argc, char **argv_orig, char **envp) {
   OKF("Writing mutation introspection to '%s'", ifn);
   #endif
 
-#ifdef RL_FUZZING
-  // TODO SET THIS AS AN ENVIRONMENT VARIABLE IN THE FUTURE! I HAVE JUST PUT
-  // THIS HERE FOR CONVIENENCE
-  afl->rl_params = rl_init_params(afl->fsrv.map_size);
-#endif
+// #ifdef RL_FUZZING
+//   // TODO SET THIS AS AN ENVIRONMENT VARIABLE IN THE FUTURE! I HAVE JUST PUT
+//   // THIS HERE FOR CONVIENENCE
+//   afl->rl_params = rl_init_params(afl->fsrv.map_size);
+// #endif
 
 
 
@@ -2299,29 +2299,29 @@ int main(int argc, char **argv_orig, char **envp) {
 #endif
 
 
-#ifdef RL_FUZZING
-    if (unlikely(afl->rl_params->map_size != afl->fsrv.map_size)) {
-      afl->rl_params->map_size = afl->fsrv.map_size;
-#ifdef PYHTON_RL
-      rl_update_map_size(afl->rl_params);
-#endif
-    }
+// #ifdef RL_FUZZING
+//     if (unlikely(afl->rl_params->map_size != afl->fsrv.map_size)) {
+//       afl->rl_params->map_size = afl->fsrv.map_size;
+// #ifdef PYHTON_RL
+//       rl_update_map_size(afl->rl_params);
+// #endif
+//     }
 
-    afl->rl_params->queue_cur = afl->queue_cur;
-    afl->rl_params->top_rated = afl->top_rated;
-    rl_update_queue(afl->rl_params);
-    afl->current_entry = afl->rl_params->current_entry;
+//     afl->rl_params->queue_cur = afl->queue_cur;
+//     afl->rl_params->top_rated = afl->top_rated;
+//     rl_update_queue(afl->rl_params);
+//     afl->current_entry = afl->rl_params->current_entry;
 
-    OKF("Modifying queue with RL\n");
-    afl->queue_cur = afl->top_rated[(int) afl->current_entry];
-    if (afl->queue_cur) {
-      OKF("Setting queue_cur to %d", afl->queue_cur->id);
-      afl->current_entry = afl->queue_cur->id;
-    }
+//     OKF("Modifying queue with RL\n");
+//     afl->queue_cur = afl->top_rated[(int) afl->current_entry];
+//     if (afl->queue_cur) {
+//       OKF("Setting queue_cur to %d", afl->queue_cur->id);
+//       afl->current_entry = afl->queue_cur->id;
+//     }
 
-#else
+// #else
     cull_queue(afl);
-#endif
+// #endif
 
 #ifdef CALCULATE_OVERHEAD
     t1 = get_timestamp();
