@@ -2284,7 +2284,9 @@ int main(int argc, char **argv_orig, char **envp) {
 
     u8 *scheduler_overhead_csv_file_name = alloc_printf("%s/scheduler_overhead.csv", afl->out_dir);
     s32 fd = open(scheduler_overhead_csv_file_name, O_WRONLY | O_APPEND | O_CREAT, DEFAULT_PERMISSION);
-    if (unlikely(fd < 0)) { PFATAL("Unable to create %s/scheduler_overhead.csv'", afl->out_dir); }
+    if (unlikely(fd < 0)) {
+      PFATAL("Unable to create %s/scheduler_overhead.csv'", afl->out_dir);
+    }
     timestamp_t t0, t1;
     u8 *scheduler_overhead;
 #endif
