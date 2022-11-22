@@ -785,9 +785,9 @@ typedef struct afl_state {
   u32   bitsmap_size;
 #endif
 
-#ifdef RL_FUZZING
-  rl_params_t *rl_params;
-#endif
+// #ifdef RL_FUZZING
+//   rl_params_t *rl_params;
+// #endif
 
 #ifdef CALCULATE_OVERHEAD
   double update_overhead_sec;
