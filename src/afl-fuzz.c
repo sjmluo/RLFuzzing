@@ -2278,7 +2278,7 @@ int main(int argc, char **argv_orig, char **envp) {
   afl->rl_params = rl_init_params(afl->fsrv.map_size);
 #endif
 
-#ifdef CALCULATE_OVERHEAD
+// #ifdef CALCULATE_OVERHEAD
     double T0 = get_timestamp();
     double overhead = 0.0;
 
@@ -2289,8 +2289,7 @@ int main(int argc, char **argv_orig, char **envp) {
     }
     timestamp_t t0, t1;
     u8 *scheduler_overhead = NULL;
-    ;
-#endif
+// #endif
 
   while (likely(!afl->stop_soon)) {
 
@@ -2327,11 +2326,7 @@ int main(int argc, char **argv_orig, char **envp) {
     t1 = get_timestamp();
     overhead += (t1 - t0) / 1000000.0;
     OKF("Seed scehduler overhead is: %.4g, %.4g", overhead / ((t1 - T0) / 1000000.0), afl->update_overhead_sec );
-     
-
-
     scheduler_overhead = alloc_printf("%f, %f, %f\n", (double) (t1 - T0) / 1000000.0, (double) overhead, afl->update_overhead_sec );
-
     write((int) (fd), scheduler_overhead, strlen(scheduler_overhead));
 #endif
 
