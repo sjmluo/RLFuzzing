@@ -211,8 +211,6 @@ struct queue_entry {
 
   struct queue_entry *mother;           /* queue entry this based on        */
 
-// #ifdef CALCULATE_OVERHEAD
-  double update_overhead_sec;
 // #endif
 
 };
@@ -789,6 +787,10 @@ typedef struct afl_state {
 
 #ifdef RL_FUZZING
   rl_params_t *rl_params;
+#endif
+
+#ifdef CALCULATE_OVERHEAD
+  double update_overhead_sec;
 #endif
 
 } afl_state_t;
