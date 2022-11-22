@@ -2287,7 +2287,6 @@ int main(int argc, char **argv_orig, char **envp) {
     if (unlikely(fd < 0)) { PFATAL("Unable to create %s/scheduler_overhead.csv'", afl->out_dir); }
     timestamp_t t0, t1;
     u8 *scheduler_overhead;
-;
 #endif
 
   while (likely(!afl->stop_soon)) {
