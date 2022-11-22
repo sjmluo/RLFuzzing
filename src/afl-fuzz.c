@@ -2182,6 +2182,18 @@ int main(int argc, char **argv_orig, char **envp) {
 
   cull_queue(afl);
 
+#ifdef CALCULATE_OVERHEAD
+    double T0 = get_timestamp();
+    double overhead = 0.0;
+
+    u8 *scheduler_overhead_csv_file_name = alloc_printf("%s/scheduler_overhead.csv", afl->out_dir);
+    s32 fd = open(scheduler_overhead_csv_file_name, O_WRONLY | O_APPEND | O_CREAT, DEFAULT_PERMISSION);
+    if (unlikely(fd < 0)) { PFATAL("Unable to create %s/scheduler_overhead.csv'", afl->out_dir); }
+    timestamp_t t0, t1;
+    u8 *scheduler_overhead = NULL;
+;
+#endif
+
   // ensure we have at least one seed that is not disabled.
   u32 entry, valid_seeds = 0;
   for (entry = 0; entry < afl->queued_items; ++entry)
@@ -2278,17 +2290,7 @@ int main(int argc, char **argv_orig, char **envp) {
   afl->rl_params = rl_init_params(afl->fsrv.map_size);
 #endif
 
-#ifdef CALCULATE_OVERHEAD
-    double T0 = get_timestamp();
-    double overhead = 0.0;
 
-    u8 *scheduler_overhead_csv_file_name = alloc_printf("%s/scheduler_overhead.csv", afl->out_dir);
-    s32 fd = open(scheduler_overhead_csv_file_name, O_WRONLY | O_APPEND | O_CREAT, DEFAULT_PERMISSION);
-    if (unlikely(fd < 0)) { PFATAL("Unable to create %s/scheduler_overhead.csv'", afl->out_dir); }
-    timestamp_t t0, t1;
-    u8 *scheduler_overhead;
-;
-#endif
 
   while (likely(!afl->stop_soon)) {
 
