@@ -83,9 +83,9 @@
 #define PY_RL_FUZZING 0
 #define RL_USE_PYTHON 0
 
-#ifdef RL_FUZZING
-#include "afl-fuzz-rl.h"
-#endif
+// #ifdef RL_FUZZING
+// #include "afl-fuzz-rl.h"
+// #endif
 
 #ifdef CALCULATE_OVERHEAD
   typedef unsigned long long timestamp_t;
