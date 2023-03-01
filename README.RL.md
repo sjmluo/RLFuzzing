@@ -36,5 +36,16 @@ Start the Python service:
 Start the fuzzer:
 
 ```bash
-# TODO
+export AFL_SKIP_CPUFREQ=1
+export AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1
+export AFL_TESTCACHE_SIZE=2
+
+# without rareness : 0
+# with rareness : 1
+# with rareness and sqrt : 2
+# sample rareness : 3
+# rare without reinforcement learning : 4
+export AFL_RL_CORRECTION_FACTOR=0
+
+./afl-fuzz -i /out/seeds -o /out/corpus -m none -t 1000+ -d -Q -c0 -- /out/fuzz_target 2147483647
 ```
