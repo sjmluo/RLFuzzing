@@ -17,11 +17,11 @@ BEST_BIT = 3
 
 
 class CorrectionFactor(Enum):
-    NONE = 'none'
-    WITHOUT_SQUARE_ROOT = 'without_square_root'
-    WITH_SQUARE_ROOT = 'with_square_root'
-    SAMPLE = 'sample'
-    RARE_EDGE = 'rare_edge'
+    WO_RARENESS = 'wo_rareness'
+    WITH_RARENESS = 'with_rareness'
+    WITH_RARENESS_AND_SQRT = 'with_rareness_and_sqrt'
+    SAMPLE_RARENESS = 'sample_rareness'
+    RARE_WO_RL = 'rare_wo_rl'
 
     def __str__(self):
         return self.value
@@ -60,17 +60,17 @@ class RLFuzzing:
         neg_reward = np.array(self.negative_reward, dtype=np.float64)
         random_beta = np.random.beta(pos_reward, neg_reward)
 
-        if self.correction_factor is CorrectionFactor.NONE:
+        if self.correction_factor is CorrectionFactor.WO_RARENESS:
             rareness = 1
-        if self.correction_factor is CorrectionFactor.WITHOUT_SQUARE_ROOT:
+        if self.correction_factor is CorrectionFactor.WITH_RARENESS:
             rareness = (pos_reward + neg_reward) / \
                        (pos_reward**2 + pos_reward + neg_reward)
-        elif self.correction_factor is CorrectionFactor.WITH_SQUARE_ROOT:
+        elif self.correction_factor is CorrectionFactor.WITH_RARENESS_AND_SQRT:
             rareness = ((pos_reward + neg_reward) / \
                         (pos_reward**2 + pos_reward + neg_reward))**0.5
-        elif self.correction_factor is CorrectionFactor.SAMPLE:
+        elif self.correction_factor is CorrectionFactor.SAMPLE_RARENESS:
             rareness = np.random.beta(pos_reward + neg_reward, pos_reward**2)
-        elif self.correction_factor is CorrectionFactor.RARE_EDGE:
+        elif self.correction_factor is CorrectionFactor.RARE_WO_RL:
             rareness = np.random.beta(pos_reward + neg_reward, pos_reward**2)
             return rareness
 
@@ -138,7 +138,7 @@ def parse_args() -> Namespace:
     parser = ArgumentParser(description='RL-based fuzzing')
     parser.add_argument('--correction-factor', required=False,
                         type=CorrectionFactor, choices=list(CorrectionFactor),
-                        default=CorrectionFactor.NONE,
+                        default=CorrectionFactor.WO_RARENESS,
                         help='Select correction factor (default=none)')
     parser.add_argument('-l', '--log', default=logging.INFO, type=log_level,
                         help='Logging level')
