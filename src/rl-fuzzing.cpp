@@ -56,7 +56,7 @@ static std::vector<float> computeScores(const rl_params_t *RLParams) {
     const auto                  NegReward = static_cast<float>(NegRewards[I]);
     const auto                  Rareness = CalcRareness(PosReward, NegReward);
 
-    if (CorrectionFactor == rl_correction_factor_t::RARE_EDGE) {
+    if (CorrectionFactor == rl_correction_factor_t::RARE_WO_RL) {
       Scores[I] = Rareness;
     } else {
       random::beta_distribution<> Dist(PosReward, NegReward);
