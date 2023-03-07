@@ -64,12 +64,12 @@ rl_params_t *rl_init_params(u32 map_size) {
 
   if (getenv("AFL_RL_CORRECTION_FACTOR")) {
     s32 correction_factor = atoi(getenv("AFL_RL_CORRECTION_FACTOR"));
-    if (correction_factor < NONE || correction_factor > NUM_VALUES) {
+    if (correction_factor < WO_RARENESS || correction_factor > NUM_VALUES) {
       FATAL("Bad value specified for AFL_RL_CORRECTION_FACTOR");
     }
     rl_params->correction_factor = correction_factor;
   } else {
-    rl_params->correction_factor = NONE;
+    rl_params->correction_factor = WO_RARENESS;
   }
   OKF("Correction factor = %s\n",
       rl_correction_factor_strs[rl_params->correction_factor]);
