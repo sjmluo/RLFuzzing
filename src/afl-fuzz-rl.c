@@ -11,10 +11,10 @@
 #endif
 
 static const char *rl_correction_factor_strs[] = {
-    "none",
-    "without_square_root",
-    "with_square_root",
-    "sample",
+    "wo_rareness",
+    "with_rareness",
+    "with_rareness_and_sqrt",
+    "rare_wo_rl",
 };
 
 u32 __attribute__((weak)) rl_select_best_bit(const rl_params_t *params) {
