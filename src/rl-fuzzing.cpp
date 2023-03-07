@@ -34,7 +34,7 @@ static std::vector<float> computeScores(const rl_params_t *RLParams) {
         return [&](float Pos, float Neg) -> float {
           return (Pos + Neg) / (std::pow(Pos, 2) + Pos + Neg);
         };
-      case rl_correction_factor_t::WITH_SQUARE_ROOT:
+      case rl_correction_factor_t::WITH_RARENESS_AND_SQRT:
         return [&](float Pos, float Neg) -> float {
           return std::sqrt((Pos + Neg) / (std::pow(Pos, 2) + Pos + Neg));
         };
@@ -56,7 +56,7 @@ static std::vector<float> computeScores(const rl_params_t *RLParams) {
     const auto                  NegReward = static_cast<float>(NegRewards[I]);
     const auto                  Rareness = CalcRareness(PosReward, NegReward);
 
-    if (CorrectionFactor == rl_correction_factor_t::RARE_EDGE) {
+    if (CorrectionFactor == rl_correction_factor_t::RARE_WO_RL) {
       Scores[I] = Rareness;
     } else {
       random::beta_distribution<> Dist(PosReward, NegReward);
