@@ -28,21 +28,21 @@ static std::vector<float> computeScores(const rl_params_t *RLParams) {
 
   const auto &CalcRareness = [&]() -> std::function<float(float, float)> {
     switch (CorrectionFactor) {
-      case rl_correction_factor_t::NONE:
+      case rl_correction_factor_t::wo_rareness:
         return [&](float, float) -> float { return 1; };
-      case rl_correction_factor_t::WITHOUT_SQUARE_ROOT:
+      case rl_correction_factor_t::with_rareness:
         return [&](float Pos, float Neg) -> float {
           return (Pos + Neg) / (std::pow(Pos, 2) + Pos + Neg);
         };
-      case rl_correction_factor_t::WITH_SQUARE_ROOT:
+      case rl_correction_factor_t::with_rareness_and_sqrt:
         return [&](float Pos, float Neg) -> float {
           return std::sqrt((Pos + Neg) / (std::pow(Pos, 2) + Pos + Neg));
         };
-      case rl_correction_factor_t::SAMPLE:
+      case rl_correction_factor_t::sample_rareness:
         return [&](float Pos, float Neg) -> float {
           return random::beta_distribution<>(Pos + Neg, std::pow(Pos, 2))(RNG);
         };
-      case rl_correction_factor_t::RARE_EDGE:
+      case rl_correction_factor_t::rare_wo_rl:
         return [&](float Pos, float Neg) -> float {
           return random::beta_distribution<>(Pos + Neg, std::pow(Pos, 2))(RNG);
         };
