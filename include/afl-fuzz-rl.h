@@ -52,3 +52,4 @@ u32          rl_select_best_bit(const rl_params_t *);
 #endif
 
 #endif  // AFL_FUZZ_RL_H
+
