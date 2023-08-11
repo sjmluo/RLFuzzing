@@ -589,6 +589,12 @@ save_if_interesting(afl_state_t *afl, void *mem, u32 len, u8 fault) {
 
   }
 
+#ifdef RL_FUZZING_v2
+    afl->rl_params->trace_bits = afl->fsrv.trace_bits;
+    afl->rl_params->map_size = afl->fsrv.map_size;
+    rl_store_features(afl->rl_params);
+#endif
+
   switch (fault) {
 
     case FSRV_RUN_TMOUT:
