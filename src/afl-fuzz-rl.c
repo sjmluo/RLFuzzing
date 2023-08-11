@@ -94,6 +94,19 @@ rl_params_t *rl_init_params(u32 map_size) {
   return rl_params;
 }
 
+#ifdef RL_FUZZING_v2
+void rl_store_features_v2(rl_params_t *rl_params) {
+  u8 *trace_bits = rl_params->trace_bits;
+
+  for (u32 i = 0; i < rl_params->map_size; i++) {
+    if (trace_bits[i]) {
+      rl_params->negative_reward[i] += 1;
+    }
+  }
+}
+#endif
+
+
 void rl_store_features(rl_params_t *rl_params) {
   u8 *trace_bits = rl_params->trace_bits;
 
@@ -101,7 +114,11 @@ void rl_store_features(rl_params_t *rl_params) {
     if (trace_bits[i]) {
       rl_params->positive_reward[i] += 1;
     } else {
+#ifdef RL_FUZZING_v2
+      // skip
+#else
       rl_params->negative_reward[i] += 1;
+#endif
     }
   }
 }

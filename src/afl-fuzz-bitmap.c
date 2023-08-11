@@ -486,6 +486,12 @@ save_if_interesting(afl_state_t *afl, void *mem, u32 len, u8 fault) {
 
     if (likely(!new_bits)) {
 
+    #ifdef RL_FUZZING_v2
+        afl->rl_params->trace_bits = afl->fsrv.trace_bits;
+        afl->rl_params->map_size = afl->fsrv.map_size;
+        rl_store_features(afl->rl_params);
+    #endif
+
       if (unlikely(afl->crash_mode)) { ++afl->total_crashes; }
       return 0;
 
@@ -588,12 +594,6 @@ save_if_interesting(afl_state_t *afl, void *mem, u32 len, u8 fault) {
     keeping = 1;
 
   }
-
-#ifdef RL_FUZZING_v2
-    afl->rl_params->trace_bits = afl->fsrv.trace_bits;
-    afl->rl_params->map_size = afl->fsrv.map_size;
-    rl_store_features(afl->rl_params);
-#endif
 
   switch (fault) {
 
